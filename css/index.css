@@ -1,0 +1,27 @@
+@import url(tool.css);
+
+.header-tools, .footer-other {
+  height: var(--main_size);
+}
+
+.header-tools {
+  border-bottom: var(--main_line);
+}
+
+.footer-other {
+  border-top:  var(--main_line);;
+}
+
+.main-editor {
+  height: calc(100% - var(--main_size) * 2);
+}
+
+.element-box, .attribute-box {
+  width: 400px;
+  color: var(--bg_color);
+}
+
+.preview-box {
+  border-left:  var(--main_line);
+  border-right:  var(--main_line);
+}
