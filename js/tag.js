@@ -8,7 +8,7 @@
  */
 
 // 被绑定的子元素
-const children_tag = {
+const tag_children = {
   figcaption: {
     name: 'figcaption',
     description: '标签定义 figure 元素的标题（caption）。',
@@ -22,7 +22,7 @@ const children_tag = {
 }
 
 // 元素表
-const tags = [
+const tag_modules = [
   {
     name: 'header',
     description: '标签定义文档的页眉（介绍信息）。',
@@ -53,19 +53,19 @@ const tags = [
     name: 'figure',
     description: '标签规定独立的流内容（图像、图表、照片、代码等等）。',
     attributes: [],
-    children: children_tag.figcaption,
+    children: [tag_children.figcaption],
   },
   {
     name: 'ul',
     description: '标签定义无序列表。',
     attributes: [],
-    children: children_tag.li,
+    children: [tag_children.li],
   },
   {
     name: 'li',
     description: '标签定义有序列表。',
     attributes: [],
-    children: children_tag.li,
+    children: [tag_children.li],
   },
   {
     name: 'form',
@@ -153,7 +153,11 @@ const total_attribute = [
   { name: 'hidden', description: '相当于display: none;' },
 ]
 
-export default tags.map((i) => ({
-  ...i,
-  ...total_attribute,
-}))
+const tags = tag_modules.map((i) => {
+  const item = {
+    ...i,
+    attributes: [...total_attribute, ...i.attributes],
+  }
+  if(!item.children) item.children = []
+  return item
+})

@@ -1,6 +1,14 @@
-@import url(tool.css);
+@import url(./tool.css);
+@import url(./tag.css);
+@import url(./attribute.css);
+@import url(./preview.css);
 
-.header-tools, .footer-other {
+::-webkit-scrollbar {
+  display: none;
+}
+
+.header-tools,
+.footer-other {
   height: var(--main_size);
 }
 
@@ -9,19 +17,46 @@
 }
 
 .footer-other {
-  border-top:  var(--main_line);;
+  border-top: var(--main_line);
 }
 
 .main-editor {
   height: calc(100% - var(--main_size) * 2);
 }
 
-.element-box, .attribute-box {
+.element-box,
+.attribute-box {
   width: 400px;
-  color: var(--bg_color);
+  padding-bottom: 20px;
 }
 
 .preview-box {
-  border-left:  var(--main_line);
-  border-right:  var(--main_line);
+  border-left: var(--main_line);
+  border-right: var(--main_line);
+}
+
+.preview-default {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  color: white;
+  text-align: center;
+  background-color: var(--lower_color);
+}
+
+.preview {
+  width: 375px;
+  height: 667px;
+  border: var(--main_line);
+}
+
+.attribute-editor-box {
+  display: flex;
+  align-items: center;
+  width: 360px;
+  margin: 20px auto 0;
+}
+
+.attribute-editor-title {
+  width: 100px;
 }

@@ -151,6 +151,18 @@ img {
   -webkit-line-clamp: 3;
 }
 
+.scroll-x {
+  overflow-x: scroll;
+}
+
+.scroll-y {
+  overflow-y: scroll;
+}
+
+.scroll {
+  overflow: scroll;
+}
+
 /* 布局 */
 .flex {
   display: flex;
@@ -224,6 +236,10 @@ img {
 
 .none {
   display: none;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .border-none {
