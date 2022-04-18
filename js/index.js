@@ -19,6 +19,9 @@ function clickElementBox(event) {
     const dom = document.createElement(target.textContent)
     dom.classList = 'preview-default'
     dom.textContent = target.textContent
+    if(target.textContent === 'input' || target.textContent === 'textarea') {
+      dom.readOnly = true
+    }
     app.dom.preview.append(dom)
   }
 }
@@ -30,12 +33,12 @@ function clickPreview(event) {
     const tag = tags.find((tag) => tag.name === text)
     if (!tag) return
     app.dom.attribute_box.innerHTML = ''
-    app.dom.attribute_box.append(createAttribute(tag.attributes))
+    app.dom.attribute_box.append(createAttribute(tag.attributes, target))
   }
 }
 
 // 创建dom工具
-function createAttribute(attributes) {
+function createAttribute(attributes, target) {
   const fragment = document.createDocumentFragment()
   let element, p, input
   attributes.forEach((attribute) => {
@@ -46,11 +49,26 @@ function createAttribute(attributes) {
     p.textContent = attribute.name
     p.classList = 'attribute-editor-title'
     input = document.createElement('input')
-    input.placeholder = attribute.name
     input.classList = 'attribute-editor-input'
+    input.value = target.getAttribute(attribute.name) || ''
+    // 0.3s延迟处理
+    let timeout
+    input.oninput = function (e) {
+      if (timeout) clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        target.setAttribute(attribute.name, this.value)
+      }, 500)
+    }
     element.append(p)
     element.append(input)
     fragment.append(element)
   })
+  const button = document.createElement('button')
+  button.textContent = '删除'
+  button.classList = 'attribute-delete-button'
+  button.onclick = function () {
+    app.dom.attribute_box.innerHTML = ''
+  }
+  fragment.append(button)
   return fragment
 }
