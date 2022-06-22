@@ -21,7 +21,7 @@
 }
 
 .main-editor {
-  height: calc(100% - var(--main_size) * 2);
+  height: calc(100vh - var(--main_size) * 2);
 }
 
 .element-box,
