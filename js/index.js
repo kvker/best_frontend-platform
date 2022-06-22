@@ -17,9 +17,10 @@ new class App {
       fragment.append(button)
     })
     dom.el.element_box.append(fragment)
-
+    
     dom.el.element_box.addEventListener('click', this.clickElementBox.bind(this))
     dom.el.preview.addEventListener('click', this.clickPreview.bind(this))
+    dom.el.download.addEventListener('click', this.clickDownload.bind(this))
   }
 
   clickElementBox(event) {
@@ -80,5 +81,13 @@ new class App {
     }
     fragment.append(button)
     return fragment
+  }
+
+  clickDownload() {
+    const a = document.createElement('a')
+    const blob = new Blob([dom.el.preview.innerHTML], {type: 'text/plain'})
+    a.href = URL.createObjectURL(blob)
+    a.download = 'demo.html'
+    a.click()
   }
 }
