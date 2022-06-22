@@ -1,10 +1,16 @@
 @import url(./tool.css);
-@import url(./tag.css);
-@import url(./attribute.css);
-@import url(./preview.css);
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.button-element {
+  width: 180px;
+  height: 180px;
+  line-height: 180px;
+  text-align: center;
+  border: var(--main_line);
+  margin-top: 16px;
 }
 
 .header-tools,
