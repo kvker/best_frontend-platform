@@ -2,6 +2,8 @@ import service from '/service/service.js'
 const { dom, data } = service
 
 new class App {
+  current_dom
+
   constructor() {
     this.init()
   }
@@ -17,8 +19,12 @@ new class App {
       fragment.append(button)
     })
     dom.el.element_box.append(fragment)
-    
+
     dom.el.element_box.addEventListener('click', this.clickElementBox.bind(this))
+    dom.el.preview_box.addEventListener('click', e => {
+      this.current_dom = null
+      dom.el.nav_title.innerText = ''
+    })
     dom.el.preview.addEventListener('click', this.clickPreview.bind(this))
     dom.el.download.addEventListener('click', this.clickDownload.bind(this))
   }
@@ -32,12 +38,16 @@ new class App {
       if (target.textContent === 'input' || target.textContent === 'textarea') {
         element.readOnly = true
       }
-      dom.el.preview.append(element)
+      if (this.current_dom) this.current_dom.append(element)
+      else dom.el.preview.append(element)
     }
   }
 
   clickPreview(event) {
+    event.stopPropagation()
     const target = event.target
+    this.current_dom = target
+    dom.el.nav_title.innerText = target.id || target.innerText
     if (target.classList.contains('preview-default')) {
       const text = target.textContent
       const tag = data.tag.find((tag) => tag.name === text)
@@ -85,7 +95,7 @@ new class App {
 
   clickDownload() {
     const a = document.createElement('a')
-    const blob = new Blob([dom.el.preview.innerHTML], {type: 'text/plain'})
+    const blob = new Blob([dom.el.preview.innerHTML], { type: 'text/plain' })
     a.href = URL.createObjectURL(blob)
     a.download = 'demo.html'
     a.click()
